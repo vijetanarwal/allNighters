@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up & Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .container h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <div class="form-group">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" placeholder="Enter password" required>
+        </div>
+        <div class="form-group">
+            <button id="signup-btn">Sign Up</button>
+        </div>
+        <div class="message">
+            <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+        </div>
+    </div>
+
+    <div class="container" style="display: none;" id="login-container">
+        <h2>Login</h2>
+        <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Enter password" required>
+        </div>
+        <div class="form-group">
+            <button id="login-btn">Login</button>
+        </div>
+        <div class="message">
+            <p>Don't have an account? <a href="#" id="show-signup">Sign Up here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Handle Sign-Up
+        document.getElementById('signup-btn').addEventListener('click', function() {
+            const username = document.getElementById('signup-username').value;
+            const password = document.getElementById('signup-password').value;
+
+            if (username && password) {
+                localStorage.setItem('username', username);
+                localStorage.setItem('password', password);
+                alert('Sign-up successful! You can now log in.');
+                document.getElementById('signup-username').value = '';
+                document.getElementById('signup-password').value = '';
+            } else {
+                alert('Please fill all fields.');
+            }
+        });
+
+        // Handle Login
+        document.getElementById('login-btn').addEventListener('click', function() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+
+            if (username === storedUsername && password === storedPassword) {
+                alert('Login successful!');
+                window.location.href="Welcome.html"
+            } else {
+                alert('Invalid username or password.');
+            }
+        });
+
+        // Show Login Page
+        document.getElementById('show-login').addEventListener('click', function() {
+            document.querySelector('.container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+        });
+
+        // Show Sign-Up Page
+        document.getElementById('show-signup').addEventListener('click', function() {
+            document.getElementById('login-container').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
